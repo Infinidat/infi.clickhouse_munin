@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -rf /etc/munin/plugins/clickhouse_*
+restart munin-node
