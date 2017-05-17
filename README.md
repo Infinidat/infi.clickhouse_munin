@@ -12,11 +12,20 @@ The following plugins are included:
 |clickhouse_merges|Shows the number of merged rows|
 |clickhouse_queries|Shows the number of insert and select queries|
 
+
 Installation
 ============
 
-- Download or clone the project
-- Run `src/install`
+From Package
+------------
+
+Run `sudo dpkg -i infi.clickhouse-munin.deb`
+
+From Source
+-----------
+
+Download or clone the project, then run `sudo src/postinst`
+
 
 Configuration
 =============
@@ -31,3 +40,9 @@ To customize their values, create a configuration file called `/etc/munin/plugin
     [clickhouse_*]
     env.CLICKHOUSE_DATADIR /opt/clickhouse/data
     env.CLICKHOUSE_URL http://clickhouse:8123/?readonly=1
+
+
+Packaging
+=========
+
+To update the .deb file, run `src/build_deb`.

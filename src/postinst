@@ -3,3 +3,4 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 ln -sf $SCRIPTPATH/clickhouse_* /etc/munin/plugins/
+restart munin-node

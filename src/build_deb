@@ -1,0 +1,19 @@
+#!/bin/sh
+
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+WORKDIR=$(dirname "$SCRIPTPATH")/build
+SRCDIR=$WORKDIR/opt/infi.clickhouse-munin
+DEBDIR=$WORKDIR/DEBIAN
+
+sudo rm -rf $WORKDIR 
+mkdir -p $SRCDIR
+cp $SCRIPTPATH/clickhouse* $SRCDIR
+
+mkdir -p $DEBDIR
+cp $SCRIPTPATH/control $DEBDIR
+cp $SCRIPTPATH/postinst $DEBDIR
+
+sudo chown -R root:root $WORKDIR
+
+dpkg-deb -v --build $WORKDIR $WORKDIR/../infi.clickhouse-munin.deb

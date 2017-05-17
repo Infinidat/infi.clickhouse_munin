@@ -1,0 +1,7 @@
+Package: infi.clickhouse-munin
+Architecture: all
+Maintainer: Itai Shirav
+Depends: curl, munin-node
+Priority: optional
+Version: 0.1
+Description: A set of Munin plugins for monitoring ClickHouse.
