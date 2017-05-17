@@ -7,7 +7,7 @@ then
     echo "graph_category clickhouse"
     echo "graph_title Query Counts"
     echo "graph_vlabel queries per minute"
-    echo "graph_info Shows the number of inserted and select queries"
+    echo "graph_info Shows the number of insert and select queries"
     echo "graph_period minute"
     echo "graph_order insertquery selectquery"
     echo "graph_scale no"
