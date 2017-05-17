@@ -1,0 +1,27 @@
+#!/bin/sh
+
+if [ "$1" = "config" ] 
+then
+
+    # Graph settings
+    echo "graph_category clickhouse"
+    echo "graph_title Ingestion Rate"
+    echo "graph_vlabel rows per second"
+    echo "graph_info Shows the number of inserted rows"
+    echo "graph_args --base 1000 -l 0"
+
+    # Inserted rows series
+    echo "insertedrows.type DERIVE"
+    echo "insertedrows.min 0"
+    echo "insertedrows.label insert"
+
+    exit 0
+
+else
+
+    DEFAULT_URL="http://localhost:8123/?readonly=1"
+    URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
+    SQL="SELECT 'insertedrows.value', value FROM system.events WHERE event = 'InsertedRows'"
+    echo $SQL | curl $URL --data-binary @-
+
+fi

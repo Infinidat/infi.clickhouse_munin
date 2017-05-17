@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ "$1" = "config" ] 
+then
+
+    echo "graph_category clickhouse"
+    echo "graph_title Merged Rows"
+    echo "graph_vlabel rows per second"
+    echo "graph_info Number of merged rows"
+    echo "graph_args --base 1000 -l 0"
+    echo "merged_rows.type COUNTER"
+    echo "merged_rows.label merged_rows"
+    exit 0
+
+else
+
+    DEFAULT_URL="http://localhost:8123/?readonly=1"
+    URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
+    SQL="SELECT 'merged_rows.value', value FROM system.events WHERE event = 'MergedRows'"
+    echo $SQL | curl $URL --data-binary @-
+
+fi

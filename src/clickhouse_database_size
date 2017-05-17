@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if [ "$1" = "config" ] 
+then
+
+    # Graph settings
+    echo "graph_category clickhouse"
+    echo "graph_title Database Size"
+    echo "graph_vlabel size"
+    echo "graph_info Shows the amount of disk space taken by the data"
+    echo "graph_args --base 1024 -l 0"
+
+    # Series
+    echo "size.label size"
+    echo "size.draw AREA"
+
+    exit 0
+
+else
+
+    DEFAULT_DATADIR="/var/lib/clickhouse/data"
+    DATADIR="${CLICKHOUSE_DATADIR:-$DEFAULT_DATADIR}"
+    printf "size.value "
+    du -s -B1 $DATADIR | cut -f1
+
+fi
