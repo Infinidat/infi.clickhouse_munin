@@ -8,7 +8,7 @@ DEBDIR=$WORKDIR/DEBIAN
 
 sudo rm -rf $WORKDIR 
 mkdir -p $SRCDIR
-cp $SCRIPTPATH/clickhouse* $SRCDIR
+cp $SCRIPTPATH/plugins/* $SRCDIR
 
 mkdir -p $DEBDIR
 cp $SCRIPTPATH/control $DEBDIR
