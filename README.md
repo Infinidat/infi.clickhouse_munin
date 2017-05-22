@@ -24,7 +24,10 @@ Run `sudo dpkg -i infi.clickhouse-munin.deb`
 From Source
 -----------
 
-Download or clone the project, then run `sudo src/postinst`
+Download or clone the project, then run:
+
+    sudo ln -sf src/plugins/clickhouse_* /etc/munin/plugins/
+    sudo restart munin-node
 
 
 Configuration

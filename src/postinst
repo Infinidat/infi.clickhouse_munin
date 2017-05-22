@@ -1,6 +1,4 @@
 #!/bin/sh
 
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
-ln -sf $SCRIPTPATH/clickhouse_* /etc/munin/plugins/
+ln -sf /opt/infi.clickhouse-munin/clickhouse_* /etc/munin/plugins/
 restart munin-node
