@@ -22,6 +22,6 @@ else
     DEFAULT_URL="http://localhost:8123/?readonly=1"
     URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
     SQL="SELECT 'insertedrows.value', value FROM system.events WHERE event = 'InsertedRows'"
-    echo $SQL | curl $URL --data-binary @-
+    echo $SQL | curl -sS $URL --data-binary @-
 
 fi
