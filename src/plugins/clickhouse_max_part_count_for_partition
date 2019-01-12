@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ "$1" = "config" ] 
+then
+
+    echo "graph_title MaxPartCountForPartition"
+    echo "graph_category clickhouse"
+    echo "graph_vlabel Max Count"
+    echo "graph_args --base 1000"
+    echo "max_part_count.label Max Count"
+    echo "max_part_count.type GAUGE"
+    echo "max_part_count.max 1000"
+    exit 0
+
+else
+
+    DEFAULT_URL="http://localhost:8123/?readonly=1"
+    URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
+    SQL="SELECT 'max_part_count.value', value FROM system.asynchronous_metrics WHERE metric = 'MaxPartCountForPartition'"
+    echo $SQL | curl -sS $URL --data-binary @-
+
+fi
