@@ -18,9 +18,9 @@ then
 
 else
 
-    DEFAULT_DATADIR="/var/lib/clickhouse/data"
+    DEFAULT_DATADIR="/localdata3/ch/data"
     DATADIR="${CLICKHOUSE_DATADIR:-$DEFAULT_DATADIR}"
     printf "size.value "
-    du -s -B1 $DATADIR | cut -f1
+    du -s -B1 $DATADIR | grep $DATADIR | cut -f1
 
 fi
