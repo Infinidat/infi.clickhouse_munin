@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ln -sf /opt/infi.clickhouse-munin/clickhouse_* /etc/munin/plugins/
-restart munin-node
+service munin-node restart
