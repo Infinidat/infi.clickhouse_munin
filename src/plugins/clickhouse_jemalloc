@@ -1,0 +1,60 @@
+#!/bin/sh
+
+if [ "$1" = "config" ]
+then
+
+    # Graph settings
+    echo "graph_category clickhouse"
+    echo "graph_title jemalloc"
+    echo "graph_vlabel memory allocation"
+    echo "graph_info Shows the various memory allocation used by clickhouse"
+    echo "graph_period minute"
+    echo "graph_order jemalloc_retained jemalloc_mapped jemalloc_resident jemalloc_metadata_thp jemalloc_metadata jemalloc_allocated jemalloc_active"
+    echo "graph_scale yes"
+    echo "graph_args --base 1024 -l 0"
+
+    # retained series
+    echo "jemalloc_retained.type GAUGE"
+    echo "jemalloc_retained.min 0"
+    echo "jemalloc_retained.label retained"
+
+    # mapped series
+    echo "jemalloc_mapped.type GAUGE"
+    echo "jemalloc_mapped.min 0"
+    echo "jemalloc_mapped.label mapped"
+
+    # resident series
+    echo "jemalloc_resident.type GAUGE"
+    echo "jemalloc_resident.min 0"
+    echo "jemalloc_resident.label resident"
+
+    # metadata_thp series
+    echo "jemalloc_metadata_thp.type GAUGE"
+    echo "jemalloc_metadata_thp.min 0"
+    echo "jemalloc_metadata_thp.label metadata_thp"
+
+    # metadata series
+    echo "jemalloc_metadata.type GAUGE"
+    echo "jemalloc_metadata.min 0"
+    echo "jemalloc_metadata.label metadata"
+
+    # allocated series
+    echo "jemalloc_allocated.type GAUGE"
+    echo "jemalloc_allocated.min 0"
+    echo "jemalloc_allocated.label allocated"
+
+    # active series
+    echo "jemalloc_active.type GAUGE"
+    echo "jemalloc_active.min 0"
+    echo "jemalloc_active.label active"
+
+    exit 0
+
+else
+
+    DEFAULT_URL="http://localhost:8123/?readonly=1"
+    URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
+    SQL="SELECT replaceAll(metric,'.','_') || '.value', value FROM system.asynchronous_metrics WHERE metric LIKE 'jemalloc.%'"
+    echo $SQL | curl -sS $URL --data-binary @-
+
+fi

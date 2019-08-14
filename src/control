@@ -3,5 +3,5 @@ Architecture: all
 Maintainer: Itai Shirav
 Depends: curl, munin-node
 Priority: optional
-Version: 0.3
+Version: 0.5
 Description: A set of Munin plugins for monitoring ClickHouse.
