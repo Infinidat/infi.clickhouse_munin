@@ -20,7 +20,7 @@ else
 
     DEFAULT_URL="http://localhost:8123/?readonly=1"
     URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
-    SQL="SELECT sum(bytes) AS size FROM system.parts"
+    SQL="SELECT 'size.value', sum(bytes) AS value FROM system.parts"
     echo $SQL | curl -sS $URL --data-binary @-
 
 fi
