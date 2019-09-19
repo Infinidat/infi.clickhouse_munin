@@ -18,9 +18,9 @@ then
 
 else
 
-    DEFAULT_DATADIR="/var/lib/clickhouse/data"
-    DATADIR="${CLICKHOUSE_DATADIR:-$DEFAULT_DATADIR}"
-    printf "size.value "
-    du -s -B1 $DATADIR | cut -f1
+    DEFAULT_URL="http://localhost:8123/?readonly=1"
+    URL="${CLICKHOUSE_URL:-$DEFAULT_URL}"
+    SQL="SELECT sum(bytes) AS size FROM system.parts"
+    echo $SQL | curl -sS $URL --data-binary @-
 
 fi
